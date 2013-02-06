@@ -1,0 +1,126 @@
+#!/system/bin/sh
+#Script originally made by Axetilen. Modified by Sultan (android1234567)
+
+# Config 3D GPU clock
+# 228571000 = 228mhz
+# 266667000 = 267mhz
+# 300000000 = 300mhz
+# 320000000 = 320mhz
+GPU=320000000;
+
+# Config 2D GPU clock
+# 145455000 = 145mhz
+# 160000000 = 160mhz
+# 200000000 = 200mhz
+# 228571000 = 228mhz (229mhz)
+# 266667000 = 267mhz
+DD=266667000;
+
+# Badass
+# possible values
+# 1 = performance
+# 2 = balanced
+# 3 = battery saving
+BADASS=2
+
+# Enable Fastcharge - Only for PYD & Sultan kernels
+# 0 = disabled
+# 1 = substitute AC to USB charging always
+# 2 = substitute AC to USB charging only if there is no USB peripheral detected
+FASTCHARGE=0;
+
+# ZRAM
+ZRAM=0
+
+# TUN
+TUN=0
+
+#################DON'T CHANGE ANYTHING BELOW THIS LINE#################
+
+# Config 3D GPU setting
+    chmod 644 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk
+    echo $GPU > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk
+    echo $GPU > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk
+
+# Config 2D GPU setting
+    chmod 644 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk
+    chmod 644 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk
+    chmod 644 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk
+    chmod 644 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk
+    echo $DD > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk
+    echo $DD > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk
+    echo $DD > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk
+    echo $DD > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk
+ 
+# Config USB forced fastcharge
+    chmod 644 /sys/kernel/fast_charge/force_fast_charge
+    echo "$FASTCHARGE" > /sys/kernel/fast_charge/force_fast_charge
+
+# Config badass cpu gov
+CUR_GOV="`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`"
+echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+case ${BADASS} in
+	1)
+		$L "badass: setting performance oriented configuration"
+		echo 1188000 > /sys/devices/system/cpu/cpufreq/badass/two_phase_freq;
+		echo 1512000 > /sys/devices/system/cpu/cpufreq/badass/three_phase_freq;
+		echo 120 > /sys/devices/system/cpu/cpufreq/badass/busy_threshold;
+		echo 80 > /sys/devices/system/cpu/cpufreq/badass/busy_clr_threshold;
+		echo 8 > /sys/devices/system/cpu/cpufreq/badass/semi_busy_threshold;
+		echo 4 > /sys/devices/system/cpu/cpufreq/badass/semi_busy_clr_threshold;
+		echo 150 > /sys/devices/system/cpu/cpufreq/badass/gpu_semi_busy_threshold;
+		echo 50 > /sys/devices/system/cpu/cpufreq/badass/gpu_semi_busy_clr_threshold;
+		echo 300 > /sys/devices/system/cpu/cpufreq/badass/gpu_busy_clr_threshold;
+		echo 450 > /sys/devices/system/cpu/cpufreq/badass/gpu_busy_threshold;
+	;;
+	2)
+		$L "badass: setting balanced configuration"
+		echo 918000 > /sys/devices/system/cpu/cpufreq/badass/two_phase_freq;
+		echo 1188000 > /sys/devices/system/cpu/cpufreq/badass/three_phase_freq;
+		echo 130 > /sys/devices/system/cpu/cpufreq/badass/busy_threshold;
+		echo 100 > /sys/devices/system/cpu/cpufreq/badass/busy_clr_threshold;
+		echo 14 > /sys/devices/system/cpu/cpufreq/badass/semi_busy_threshold;
+		echo 6 > /sys/devices/system/cpu/cpufreq/badass/semi_busy_clr_threshold;
+		echo 260 > /sys/devices/system/cpu/cpufreq/badass/gpu_semi_busy_threshold;
+		echo 180 > /sys/devices/system/cpu/cpufreq/badass/gpu_semi_busy_clr_threshold;
+		echo 700 > /sys/devices/system/cpu/cpufreq/badass/gpu_busy_threshold;
+		echo 500 > /sys/devices/system/cpu/cpufreq/badass/gpu_busy_clr_threshold;
+	;;
+	3)
+		$L "badass: setting battery saving configuration"
+		echo 918000 > /sys/devices/system/cpu/cpufreq/badass/two_phase_freq;
+		echo 1188000 > /sys/devices/system/cpu/cpufreq/badass/three_phase_freq;
+		echo 140 > /sys/devices/system/cpu/cpufreq/badass/busy_threshold;
+		echo 110 > /sys/devices/system/cpu/cpufreq/badass/busy_clr_threshold;
+		echo 80 > /sys/devices/system/cpu/cpufreq/badass/semi_busy_threshold;
+		echo 20 > /sys/devices/system/cpu/cpufreq/badass/semi_busy_clr_threshold;
+		echo 300 > /sys/devices/system/cpu/cpufreq/badass/gpu_semi_busy_threshold;
+		echo 250 > /sys/devices/system/cpu/cpufreq/badass/gpu_semi_busy_clr_threshold;
+		echo 750 > /sys/devices/system/cpu/cpufreq/badass/gpu_busy_threshold;
+		echo 600 > /sys/devices/system/cpu/cpufreq/badass/gpu_busy_clr_threshold;
+	;;
+esac
+echo ${CUR_GOV} > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+#Config ZRAM
+
+if [ "${ZRAM}" = "1" ]; then
+	if [ -e /system/lib/modules/zram.ko ]; then
+		modprobe zram num_devices=1;
+		echo 1 > /sys/block/zram0/reset;
+		echo $((100*1024*1024)) > /sys/block/zram0/disksize
+
+		mkswap /dev/block/zram0
+		swapon /dev/block/zram0
+		$L "ZRAM activated."
+	fi
+fi
+
+#Config TUN
+
+if [ "${TUN}" = "1" ]; then
+	if [ -e /system/lib/modules/tun.ko ] ; then
+		insmod /system/lib/modules/tun.ko
+		$L "Inserted tun kernel module."
+	fi
+fi
