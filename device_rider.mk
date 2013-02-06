@@ -39,7 +39,7 @@ PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
 
 
 # Bluetooth firmware
-$(call inherit-product, device/htc/msm8660-common/bcm_hcd.mk)
+PRODUCT_COPY_FILES += device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
