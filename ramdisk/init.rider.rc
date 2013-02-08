@@ -16,7 +16,6 @@ on early-init
 on init
 	mkdir /devlog 0700 root root
 
-
 on fs
 	#enable rw on system partition.
 #    mount_all /fstab.rider
@@ -250,16 +249,6 @@ service hdmid /system/bin/hdmid
 service htcbatt /system/bin/htcbatt
     class core
     user root
-
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp --single_core_while_panel_off
-    user root
-    disabled
-	handled by kernel
-
-service thermald /system/bin/thermald
-    user root
-    disabled
-	handled by kernel
 
 service qcom-post-boot /system/sbin/init.qcom.post_boot.sh
     user root

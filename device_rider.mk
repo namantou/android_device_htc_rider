@@ -35,11 +35,11 @@ PRODUCT_PACKAGES += \
     Torch
 
 ## The gps config appropriate for this device
-PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
-
+PRODUCT_COPY_FILES += device/htc/rider/configs/gps.conf:system/etc/gps.conf
 
 # Bluetooth firmware
-PRODUCT_COPY_FILES += device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
+PRODUCT_COPY_FILES += \
+    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
@@ -60,8 +60,7 @@ PRODUCT_COPY_FILES += \
 
 # Some misc configuration files
 PRODUCT_COPY_FILES += \
-    device/htc/rider/vold.fstab:system/etc/vold.fstab \
-    device/htc/rider/configs/89kernel:system/etc/init.d/89kernel
+    device/htc/rider/vold.fstab:system/etc/vold.fstab
 
 # Keylayouts and Keychars
 PRODUCT_COPY_FILES += \
@@ -79,8 +78,6 @@ PRODUCT_COPY_FILES += \
 
 # HTC BT Audio tune
 PRODUCT_COPY_FILES += device/htc/rider/dsp/AudioBTID.csv:system/etc/AudioBTID.csv
-
-# QC thermald config
 
 # Sound configs
 PRODUCT_COPY_FILES += \
@@ -113,11 +110,6 @@ PRODUCT_COPY_FILES += \
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
-
-# Custom media config for HTC camera
-PRODUCT_COPY_FILES += \
-    device/htc/msm8660-common/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    device/htc/rider/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
