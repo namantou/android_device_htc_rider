@@ -8,6 +8,8 @@ on early-init
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/usbdisk /usbdisk
+    symlink /storage/usbdisk /mnt/usbdisk
     export EXTERNAL_STORAGE /storage/sdcard0
 
     # Force loading of modem and Q6 images
@@ -34,9 +36,6 @@ on post-fs-data
     chmod 0700 /devlog
 
 on boot
-    # for systrace
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-
     # for Invense MPU3050
     chmod 0664 /dev/mpu
     chmod 0664 /dev/mpuirq
@@ -118,6 +117,15 @@ on boot
     chown system system /sys/class/optical_sensors/proximity/ps_led
     chown system system /sys/class/optical_sensors/proximity/ps_test_mode
 
+    # for cm performance
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+    chown root system /sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies
+    chown root system /sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors
+    chown root system /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq
+    chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
+
     # for simlock
     chown radio radio /dev/simlock
     chmod 0660 /dev/simlock
@@ -130,8 +138,8 @@ on boot
     chown radio radio /sys/class/power_supply/battery/charger_control
     chmod 0660 /sys/class/power_supply/battery/charger_control
     
-    # for Slate charging timer
-    chown radio /sys/class/power_supply/battery/charger_timer
+	# for Slate charging timer
+	chown radio /sys/class/power_supply/battery/charger_timer
 
     # sync fs
     chown system /sys/devices/platform/rs300000a7.65536/force_sync
@@ -249,6 +257,16 @@ service hdmid /system/bin/hdmid
 service htcbatt /system/bin/htcbatt
     class core
     user root
+
+#service mpdecision /system/bin/mpdecision --no_sleep --avg_comp --single_core_while_panel_off
+#    user root
+#    disabled
+#	handled by kernel
+
+#service thermald /system/bin/thermald
+#    user root
+#    disabled
+#	handled by kernel
 
 service qcom-post-boot /system/sbin/init.qcom.post_boot.sh
     user root
