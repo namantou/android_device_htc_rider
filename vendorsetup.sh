@@ -1,1 +1,1 @@
-add_lunch_combo cm_rider-userdebug
+add_lunch_combo rider-userdebug

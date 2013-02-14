@@ -16,17 +16,13 @@ on early-init
     write /dev/smd_pkt_loopback 1
 
 on init
-	mkdir /devlog 0700 root root
+    mkdir /devlog 0700 root root
 
 on fs
-	#enable rw on system partition.
-#    mount_all /fstab.rider
-    mount ext4 /dev/block/mmcblk0p23 /system wait rw data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p24 /data wait noatime nosuid nodev data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p25 /cache wait noatime nosuid nodev data=ordered noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p29 /devlog wait noatime nosuid nodev data=ordered noauto_da_alloc
+    # mount all mmc partitions
+    mount_all /fstab.rider
 
-	mount debugfs /sys/kernel/debug /sys/kernel/debug
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
 	
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=100
 
