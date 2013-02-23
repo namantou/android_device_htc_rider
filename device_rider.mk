@@ -25,6 +25,7 @@ PRODUCT_DEVICE := rider
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/rider/overlay
+DEVICE_PACKAGE_OVERLAYS += vendor/aokp/overlay/rider
 
 # GPS and sensors
 PRODUCT_PACKAGES += \
