@@ -128,3 +128,10 @@ $(call inherit-product, device/htc/rider/media_a1026.mk)
 $(call inherit-product, device/htc/rider/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+
+# Device naming
+PRODUCT_DEVICE := rider
+PRODUCT_NAME := rider
+PRODUCT_BRAND := htc
+PRODUCT_MODEL := HTC X515E
+PRODUCT_MANUFACTURER := HTC

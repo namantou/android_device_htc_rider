@@ -46,8 +46,9 @@ BUILD_KERNEL := true
 # Kernel [Prebuilt]
 #TARGET_PREBUILT_KERNEL := device/htc/rider/prebuilt/kernel
 
-# Bluetooth/Wifi
--include device/htc/msm8660-common/bcmdhd.mk
+# Wifi
+WIFI_DRIVER_MODULE_NAME          := bcmdhd
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcmdhd.ko"
 
 # Qcom GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := rider
@@ -63,4 +64,3 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16776192
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 838859776
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 1252770816
 BOARD_FLASH_BLOCK_SIZE := 262144
-BOARD_HAS_NO_SELECT_BUTTON := true
