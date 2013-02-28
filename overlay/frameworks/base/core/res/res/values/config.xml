@@ -73,15 +73,15 @@
          than the size of the config_autoBrightnessLevels array.
     -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>56</item>
-        <item>56</item>
-        <item>56</item>
-        <item>90</item>
-        <item>117</item>
-        <item>142</item>
-        <item>170</item>
-        <item>198</item>
-        <item>227</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>75</item>
+        <item>105</item>
+        <item>125</item>
+        <item>150</item>
+        <item>180</item>
+        <item>200</item>
         <item>255</item>
     </integer-array>
 
@@ -199,5 +199,8 @@
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
+
+    <!-- We dont have different firmware for wifi modes, prevent reloading it -->
+    <bool name="config_wifiApFirmwareReload">false</bool>
 
 </resources>

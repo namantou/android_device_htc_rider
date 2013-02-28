@@ -25,4 +25,6 @@ for different hardware and product builds. -->
     <!-- The camera removes the focus modes by default when touch-to-focus
 exists. Use this option to change that behavior -->
     <bool name="wantsFocusModes">true</bool>
+  <!-- Enable Zero Shutter Lag on camera -->
+  <bool name="enableZSL">true</bool>
 </resources>
