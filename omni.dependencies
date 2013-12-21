@@ -1,0 +1,28 @@
+[
+  {
+    "remote":      "namantou",
+    "repository":  "android_kernel_htc_msm8660",
+    "target_path": "kernel/htc/msm8660",
+    "revision":    "cm-11.0"
+  }
+  {
+    "remote":      "namantou",
+    "repository":  "android_vendor_htc_rider",
+    "target_path": "vendor/htc/rider",
+    "revision":    "cm-11.0"
+  }
+  {
+    "remote":      "namantou",
+    "repository":  "android_device_htc_rider",
+    "target_path": "device/htc/rider",
+    "revision":    "omni-4.4"
+  }
+  {
+    "remote":      "namantou",
+    "repository":  "android_device_htc_msm8660-common",
+    "target_path": "device/htc/msm8660-common",
+    "revision":    "cm-11.0"
+  }
+
+
+]
