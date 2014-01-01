@@ -7,6 +7,7 @@ PRODUCT_RELEASE_NAME := rider
 # Bootanimation
 TARGET_SCREEN_HEIGHT := 960
 TARGET_SCREEN_WIDTH := 540
+DEVICE_RESOLUTION := 540x960
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/omni/config/common.mk)
